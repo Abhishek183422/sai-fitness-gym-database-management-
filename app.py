@@ -201,55 +201,11 @@ class GymModel:
             if rows:
                 # Convert rows to HTML with custom styling
                 table_html = f"""
-                <style>
-                /* Table Container */
-                .view-all-members {{
-                    zoom: 1.1;  /* Enlarges entire table by 10% */
-                }}
-                
-                /* Table Styling */
-                .view-all-members table {{
-                    width: 100% !important;
-                    border-collapse: collapse;
-                    background-color: rgba(0,0,0,0.7) !important;
-                    border-radius: 10px;
-                    overflow: hidden;
-                }}
-                
-                .view-all-members th {{
-                    background-color: #333333 !important;
-                    color: #FFD700 !important;
-                    font-size: 18px !important;  /* Larger header text */
-                    font-weight: 800 !important;  /* Extra bold */
-                    padding: 12px 8px !important;
-                }}
-                
-                .view-all-members td {{
-                    color: #FFFFFF !important;
-                    font-size: 16px !important;  /* Larger body text */
-                    font-weight: 600 !important;  /* Semi-bold */
-                    padding: 12px 8px !important;
-                }}
-                
-                /* Mobile Responsiveness */
-                @media screen and (max-width: 768px) {{
-                    .view-all-members table {{
-                        zoom: 1.15;  /* Even larger on mobile */
-                    }}
-                    .view-all-members th {{
-                        font-size: 20px !important;
-                    }}
-                    .view-all-members td {{
-                        font-size: 18px !important;
-                    }}
-                }}
-                </style>
-                
-                <div class="view-all-members">
+                <div class="mobile-friendly-table">
                 <table>
                     <thead>
                         <tr>
-                            {"".join(f"<th>{header}</th>" for header in ["Member Name", "Join Date", "Phone Number", "Code"])}
+                            {"".join(f"<th>{header}</th>" for header in ["Member Name", "Join Date", "Phone", "Code"])}
                         </tr>
                     </thead>
                     <tbody>
