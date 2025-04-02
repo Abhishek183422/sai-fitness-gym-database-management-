@@ -188,26 +188,50 @@ class GymModel:
                 # Convert rows to HTML with custom styling
                 table_html = f"""
                 <style>
-                table {{
-                    width: 100%;
+                /* Table Container */
+                .view-all-members {{
+                    zoom: 1.1;  /* Enlarges entire table by 10% */
+                }}
+                
+                /* Table Styling */
+                .view-all-members table {{
+                    width: 100% !important;
                     border-collapse: collapse;
+                    background-color: rgba(0,0,0,0.7) !important;
+                    border-radius: 10px;
+                    overflow: hidden;
                 }}
-                th, td {{
-                    border: 1px solid #ddd;
-                    padding: 8px;
-                    text-align: left;
-                    color: #FF5733;
+                
+                .view-all-members th {{
+                    background-color: #333333 !important;
+                    color: #FFD700 !important;
+                    font-size: 18px !important;  /* Larger header text */
+                    font-weight: 800 !important;  /* Extra bold */
+                    padding: 12px 8px !important;
                 }}
-                th {{
-                    background-color: #333333;
-                    color: white;
-                    font-weight: bold;  /* ONLY headers will be bold */
+                
+                .view-all-members td {{
+                    color: #FFFFFF !important;
+                    font-size: 16px !important;  /* Larger body text */
+                    font-weight: 600 !important;  /* Semi-bold */
+                    padding: 12px 8px !important;
                 }}
-                /* Data cells remain normal (no font-weight specified) */
-                td {{
-                    font-weight: normal;
+                
+                /* Mobile Responsiveness */
+                @media screen and (max-width: 768px) {{
+                    .view-all-members table {{
+                        zoom: 1.15;  /* Even larger on mobile */
+                    }}
+                    .view-all-members th {{
+                        font-size: 20px !important;
+                    }}
+                    .view-all-members td {{
+                        font-size: 18px !important;
+                    }}
                 }}
                 </style>
+                
+                <div class="view-all-members">
                 <table>
                     <thead>
                         <tr>
@@ -218,6 +242,7 @@ class GymModel:
                         {"".join(f"<tr>{''.join(f'<td>{cell}</td>' for cell in row)}</tr>" for row in rows)}
                     </tbody>
                 </table>
+                </div>
                 """
                 st.markdown(table_html, unsafe_allow_html=True)
             else:
