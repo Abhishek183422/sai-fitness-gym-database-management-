@@ -116,7 +116,7 @@ class GymModel:
         # Streamlit form for adding new members
         # Streamlit form for adding new members
         # Streamlit form for adding new members
-        with st.form("data_entry_form", clear_on_submit=True):  # Clears inputs after submit
+        with st.form("data_entry_form", clear_on_submit=True):
             st.subheader("Add New Member")
             member_name = st.text_input("**Member Name**")
             phone_no = st.text_input("**Phone Number**")
@@ -125,16 +125,23 @@ class GymModel:
             
             if submitted:
                 if member_name and phone_no:
-                    if not phone_no.isdigit() or len(phone_no) != 10:  # New validation
-                        st.error("📱 Phone number must be 10 digits!")
-                    elif phone_no in existing_phones:
-                        st.error("❌ This phone number is already registered!")
-                    else:
-                        code, join_date = self.code_and_date()
-                        self.update_google_sheet(member_name, join_date, phone_no, code)
-                        st.success("✅ Member added successfully!")
+                    # Get existing data with error handling
+                    try:
+                        existing_data = self.sheet.get_all_values()
+                        existing_phones = [row[2] for row in existing_data[1:]] if len(existing_data) > 1 else []
+                        
+                        if not phone_no.isdigit() or len(phone_no) != 10:
+                            st.error("📵 Phone number must be 10 digits!")
+                        elif phone_no in existing_phones:
+                            st.error("⛔ This number is already registered!")
+                        else:
+                            code, join_date = self.code_and_date()
+                            self.update_google_sheet(member_name, join_date, phone_no, code)
+                            st.success("✅ Member added successfully!")
+                    except Exception as e:
+                        st.error(f"⚠️ System error: {str(e)}")
                 else:
-                    st.error("⚠️ Please fill in all fields!")
+                    st.warning("🔸 Please fill all fields!")
 
 
 
