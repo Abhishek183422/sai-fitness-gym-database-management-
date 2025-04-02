@@ -10,13 +10,23 @@ st.set_page_config(
     }
 )
 
+# Add security CSS immediately after
+hide_github_icon = """
+<style>
+#MainMenu {visibility: hidden;}
+header {visibility: hidden;}
+footer {visibility: hidden;}
+.stDeployButton {display:none;}
+.css-1rs6os.edgvbvh3 {display:none;}
+.css-1lsmgbg.egzxvld0 {display:none;}
+</style>
+"""
+st.markdown(hide_github_icon, unsafe_allow_html=True)
+
 import random
 from datetime import datetime
 import gspread
 from google.oauth2.service_account import Credentials
-import streamlit as st
-
-
 import streamlit as st
 
 # Background color for the app
@@ -59,12 +69,15 @@ class GymModel:
         return unique_code, current_date
 
     def google_sheet(self):
-        scopes = ["https://www.googleapis.com/auth/spreadsheets"]
-        creds = Credentials.from_service_account_info(st.secrets["gcp_creds"], scopes=scopes)  # Updated line
-        client = gspread.authorize(creds)
-        sheet_id = "1dJ9Cqlqr8SiR4fovXpWtYh7tWPA8-gsx648Yr-uhb1c"
-        workbook = client.open_by_key(sheet_id)
-        return workbook.worksheet("Sheet1")
+        try:
+            scopes = ["https://www.googleapis.com/auth/spreadsheets"]
+            creds = Credentials.from_service_account_info(st.secrets["gcp_creds"], scopes=scopes)
+            client = gspread.authorize(creds)
+            sheet_id = "1dJ9Cqlqr8SiR4fovXpWtYh7tWPA8-gsx648Yr-uhb1c"
+            return client.open_by_key(sheet_id).worksheet("Sheet1")
+        except Exception as e:
+            st.error(f"🔴 Error accessing Google Sheets: {str(e)}")
+            st.stop()  # Prevent the app from continuing with errors
 
     def update_google_sheet(self, member_name, join_date, phone_no, code):
         # Append new data as a row in the sheet
@@ -115,11 +128,9 @@ class GymModel:
             
             if submitted:
                 if member_name and phone_no:
-                    # Check for duplicate phone numbers
-                    existing_data = self.sheet.get_all_values()
-                    existing_phones = [row[2] for row in existing_data[1:]]  # Skip header row
-                    
-                    if phone_no in existing_phones:
+                    if not phone_no.isdigit() or len(phone_no) != 10:  # New validation
+                        st.error("📱 Phone number must be 10 digits!")
+                    elif phone_no in existing_phones:
                         st.error("❌ This phone number is already registered!")
                     else:
                         code, join_date = self.code_and_date()
