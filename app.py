@@ -223,11 +223,12 @@ class GymModel:
             if rows:
                 # Convert rows to HTML with custom styling
                 table_html = f"""
-                <div class="mobile-table">
+                
+                <div class="gold-table">
                 <table>
                     <thead>
                         <tr>
-                            {"".join(f"<th>{header}</th>" for header in ["Name", "Join Date", "Phone", "Code"])}
+                            {"".join(f"<th>{header}</th>" for header in ["Member Name", "Join Date", "Phone", "Code"])}
                         </tr>
                     </thead>
                     <tbody>
@@ -235,7 +236,7 @@ class GymModel:
                     </tbody>
                 </table>
                 </div>
-                """
+                """    
 
                 st.markdown(table_html, unsafe_allow_html=True)
             else:
