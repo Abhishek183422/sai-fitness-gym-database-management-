@@ -42,9 +42,35 @@ page_bg_style = """
     background-position: center;
 }
 
-h1, h2, h3, h4, h5, h6, p, div, label {
-    color: #FF5733; /* Deep gray color for text */
-    font-family: 'Arial', sans-serif; /* Consistent font styling */
+/* Global text styling */
+h1, h2, h3, h4, h5, h6, p, div, label, .stTextInput>div>div>input, .stRadio>div {
+    color: #ff9466 !important;
+    font-family: 'Arial', sans-serif;
+    font-weight: 600 !important;  /* Semi-bold */
+    font-size: 18px !important;   /* Larger base size */
+}
+
+/* Special styling for main header */
+h1 {
+    font-weight: 800 !important;  /* Extra bold */
+    font-size: 42px !important;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+/* Table styling */
+th, td {
+    font-weight: 600 !important;
+    font-size: 16px !important;
+}
+
+/* Form elements */
+.stTextInput>div>div>input, .stRadio>div {
+    font-size: 18px !important;
+}
+
+/* Success/error messages */
+.stAlert {
+    font-size: 16px !important;
 }
 </style>
 """
@@ -106,7 +132,7 @@ class GymModel:
         return len(rows) - 1  # Subtract 1 for the header row
 
     def web_interface(self):
-        st.header('SAI FITNESS')
+        st.markdown("<h1 style='text-align: center;'>SAI FITNESS</h1>", unsafe_allow_html=True)
 
         # Display total member count at the top
         total_members = self.get_total_member_count()
