@@ -1,11 +1,10 @@
-# 1. IMPORTS (NO Streamlit usage here)
 import random
 from datetime import datetime
 import gspread
 from google.oauth2.service_account import Credentials
 import streamlit as st
 
-# ===== 2. PAGE CONFIG (FIRST Streamlit command) =====
+# ===== 2. PAGE CONFIG =====
 st.set_page_config(
     page_title="SAI FITNESS - Member Management",
     layout="wide",
@@ -30,9 +29,10 @@ footer {visibility: hidden;}
 """
 st.markdown(hide_github_icon, unsafe_allow_html=True)
 
-# Updated background CSS for the app
+# Updated background and text styling
 page_bg_style = """
 <style>
+/* Background Image */
 .stApp {
     background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpaperaccess.com%2Ffull%2F1439676.jpg&f=1&nofb=1&ipt=a38fd89a1c75846a83039cf38969594b8670aa7f4861e506d59fbecb326892a0&ipo=images");
     background-size: cover;
@@ -41,8 +41,9 @@ page_bg_style = """
     background-position: center;
 }
 
+/* Text and Heading Styling */
 h1, h2, h3, h4, h5, h6, p, div, label {
-    color: #FFD700; /* Golden Yellow for Text */
+    color: #FF4500 !important; /* Deep Bright Orange */
     font-family: 'Arial', sans-serif;
 }
 
@@ -51,12 +52,12 @@ table {
     width: 100%;
     border-collapse: collapse;
     background: rgba(0, 0, 0, 0.7); /* Black Transparent Background */
-    color: #FFD700; /* Golden Yellow Font */
+    color: #FF4500 !important; /* Deep Bright Orange */
     border-radius: 10px;
 }
 
 th, td {
-    border: 1px solid #FFD700;
+    border: 1px solid #FF4500;
     padding: 10px;
     text-align: center;
 }
@@ -64,7 +65,7 @@ th, td {
 th {
     background-color: black;
     font-weight: bold;
-    color: #FFD700; /* Golden Yellow Headers */
+    color: #FF4500 !important;
     font-size: 18px;
 }
 
@@ -73,13 +74,6 @@ td {
 }
 </style>
 """
-
-st.markdown(page_bg_style, unsafe_allow_html=True)
-
-
-
-
-# Inject the CSS into the app
 st.markdown(page_bg_style, unsafe_allow_html=True)
 
 class GymModel:
@@ -87,9 +81,7 @@ class GymModel:
         self.sheet = self.google_sheet()
 
     def code_and_date(self):
-        # Generate a unique code
         unique_code = random.randint(1000, 9999)
-        # Get the current date
         current_date = datetime.now().strftime("%Y-%m-%d")
         return unique_code, current_date
 
@@ -102,48 +94,33 @@ class GymModel:
             return client.open_by_key(sheet_id).worksheet("Sheet1")
         except Exception as e:
             st.error(f"🔴 Error accessing Google Sheets: {str(e)}")
-            st.stop()  # Prevent the app from continuing with errors
+            st.stop()
 
     def update_google_sheet(self, member_name, join_date, phone_no, code):
-        # Append new data as a row in the sheet
         new_row = [member_name, join_date, phone_no, code]
         self.sheet.append_row(new_row)
 
     def view_member_details(self, search_value):
-        # Get all rows from the sheet
         rows = self.sheet.get_all_values()
-
-        # Search for a member by phone number or unique code
-        for row in rows[1:]:  # Skip the header row
-            if row[2] == search_value:  # Check phone number
+        for row in rows[1:]:
+            if row[2] == search_value or row[3] == search_value:
                 return {"Member Name": row[0], "Join Date": row[1], "Phone Number": row[2], "Code": row[3]}
-            elif row[3] == search_value:  # Check unique code
-                return {"Member Name": row[0], "Join Date": row[1], "Phone Number": row[2], "Code": row[3]}
-
-        # If not found
         return None
 
     def get_all_members(self):
-        # Get all rows and return the data excluding the header
         rows = self.sheet.get_all_values()
-        return rows[1:]  # Exclude the header row
+        return rows[1:]
 
     def get_total_member_count(self):
-        # Get total number of members (excluding header row)
         rows = self.sheet.get_all_values()
-        return len(rows) - 1  # Subtract 1 for the header row
+        return len(rows) - 1
 
     def web_interface(self):
         st.header('SAI FITNESS')
 
-        # Display total member count at the top
         total_members = self.get_total_member_count()
         st.markdown(f"##### Total Members: {total_members}")
 
-                # Initialize session state for member_name and phone_no if they are not already set
-        # Streamlit form for adding new members
-        # Streamlit form for adding new members
-        # Streamlit form for adding new members
         with st.form("data_entry_form", clear_on_submit=True):
             st.subheader("Add New Member")
             member_name = st.text_input("**Member Name**")
@@ -153,7 +130,6 @@ class GymModel:
             
             if submitted:
                 if member_name and phone_no:
-                    # Get existing data with error handling
                     try:
                         existing_data = self.sheet.get_all_values()
                         existing_phones = [row[2] for row in existing_data[1:]] if len(existing_data) > 1 else []
@@ -171,23 +147,16 @@ class GymModel:
                 else:
                     st.warning("🔸 Please fill all fields!")
 
-
-
-
-
-        # Options for viewing or searching members
         st.subheader("Dashboard")
         view_option = st.radio(
             "**Choose an option**",
             ("None", "View All Members", "Search Member Details")
         )
 
-        # Option: View All Members
         if view_option == "View All Members":
             st.subheader("**All Members List**")
             rows = self.get_all_members()
             if rows:
-                # Convert rows to HTML with custom styling
                 table_html = f"""
                 <style>
                 table {{
@@ -195,17 +164,16 @@ class GymModel:
                     border-collapse: collapse;
                 }}
                 th, td {{
-                    border: 1px solid #ddd;
+                    border: 1px solid #FF4500;
                     padding: 8px;
                     text-align: left;
-                    color: #FF5733;
+                    color: #FF4500;
                 }}
                 th {{
                     background-color: #333333;
                     color: white;
-                    font-weight: bold;  /* ONLY headers will be bold */
+                    font-weight: bold;
                 }}
-                /* Data cells remain normal (no font-weight specified) */
                 td {{
                     font-weight: normal;
                 }}
@@ -224,8 +192,7 @@ class GymModel:
                 st.markdown(table_html, unsafe_allow_html=True)
             else:
                 st.info("No members found.")
-                    
-        # Option: Search Member Details
+
         elif view_option == "Search Member Details":
             st.subheader("Search Member Details")
             search_value = st.text_input("Enter Phone Number or Unique Code")
@@ -240,7 +207,6 @@ class GymModel:
                 else:
                     st.error("**No member found with the given details.**")
 
-# Main entry point
 if __name__ == "__main__":
     gym_model = GymModel()
     gym_model.web_interface()
