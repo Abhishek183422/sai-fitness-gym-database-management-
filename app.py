@@ -31,6 +31,7 @@ st.markdown(hide_github_icon, unsafe_allow_html=True)
 
 # Updated background and text styling
 # Updated background CSS for the app
+# Updated background CSS for the app
 page_bg_style = """
 <style>
 /* Background Image */
@@ -48,15 +49,21 @@ h1, h2, h3, h4, h5, h6, p, div, label {
     font-family: 'Arial', sans-serif;
 }
 
-/* Increase font size for form labels */
+/* Make "Member Name" & "Phone Number" labels bigger */
 label {
-    font-size: 18px !important; /* Adjust size as needed */
+    font-size: 24px !important; /* Increased size */
     font-weight: bold;
 }
 
-/* Increase font size for radio button options */
+/* Increase font size for radio button labels */
 div[data-baseweb="radio"] {
-    font-size: 18px !important;
+    font-size: 22px !important;
+    font-weight: bold;
+}
+
+/* Increase font size for radio button options (None, View All Members, etc.) */
+.stRadio label {
+    font-size: 20px !important;
     font-weight: bold;
 }
 
@@ -90,6 +97,7 @@ td {
 
 # Inject the CSS into the app
 st.markdown(page_bg_style, unsafe_allow_html=True)
+
 
 
 class GymModel:
