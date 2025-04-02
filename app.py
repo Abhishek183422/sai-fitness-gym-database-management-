@@ -143,11 +143,16 @@ class GymModel:
                     border: 1px solid #ddd;
                     padding: 8px;
                     text-align: left;
-                    color: #FF5733; /* Orange text */
+                    color: #FF5733;
                 }}
                 th {{
-                    background-color: #333333; /* Dark background for headers */
-                    color: white; /* White header text */
+                    background-color: #333333;
+                    color: white;
+                    font-weight: bold;  /* ONLY headers will be bold */
+                }}
+                /* Data cells remain normal (no font-weight specified) */
+                td {{
+                    font-weight: normal;
                 }}
                 </style>
                 <table>
