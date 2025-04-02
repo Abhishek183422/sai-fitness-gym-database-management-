@@ -34,43 +34,57 @@ st.markdown(hide_github_icon, unsafe_allow_html=True)
 # Updated background CSS for the app
 page_bg_style = """
 <style>
-.stApp {
-    background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpaperaccess.com%2Ffull%2F1439676.jpg&f=1&nofb=1&ipt=a38fd89a1c75846a83039cf38969594b8670aa7f4861e506d59fbecb326892a0&ipo=images");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
-}
-
-/* Global text styling */
+/* Global Gold Text Styling */
 h1, h2, h3, h4, h5, h6, p, div, label, .stTextInput>div>div>input, .stRadio>div {
-    color: #ff9466 !important;
-    font-family: 'Arial', sans-serif;
-    font-weight: 600 !important;  /* Semi-bold */
-    font-size: 18px !important;   /* Larger base size */
-}
-
-/* Special styling for main header */
-h1 {
-    font-weight: 800 !important;  /* Extra bold */
-    font-size: 42px !important;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-}
-
-/* Table styling */
-th, td {
+    color: #FFD700 !important;  /* Gold color */
+    font-family: 'Roboto', sans-serif !important;
     font-weight: 600 !important;
-    font-size: 16px !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
 }
 
-/* Form elements */
-.stTextInput>div>div>input, .stRadio>div {
-    font-size: 18px !important;
+/* Main Header */
+h1 {
+    font-size: 2.2rem !important;
+    font-weight: 800 !important;
+    text-align: center;
 }
 
-/* Success/error messages */
-.stAlert {
-    font-size: 16px !important;
+/* View All Members Table - Optimized for Mobile */
+.mobile-friendly-table {
+    width: 100% !important;
+    font-size: 14px !important;  /* Slightly smaller font */
+}
+
+.mobile-friendly-table table {
+    width: 100% !important;
+    background-color: rgba(0,0,0,0.7) !important;
+    border-collapse: collapse;
+}
+
+.mobile-friendly-table th {
+    background-color: #222 !important;
+    color: #FFD700 !important;
+    font-size: 15px !important;
+    padding: 8px 5px !important;
+    white-space: nowrap;  /* Prevent line breaks */
+}
+
+.mobile-friendly-table td {
+    color: #FFD700 !important;
+    font-size: 14px !important;
+    padding: 8px 5px !important;
+}
+
+/* Mobile Responsiveness */
+@media screen and (max-width: 768px) {
+    .mobile-friendly-table {
+        zoom: 0.95;  /* Slightly reduce size */
+    }
+    .mobile-friendly-table th,
+    .mobile-friendly-table td {
+        padding: 6px 4px !important;
+        font-size: 13px !important;
+    }
 }
 </style>
 """
