@@ -1,16 +1,24 @@
 
+# 1. IMPORTS (NO Streamlit usage here)
+import random
+from datetime import datetime
+import gspread
+from google.oauth2.service_account import Credentials
+import streamlit as st
+
+# ===== 2. PAGE CONFIG (FIRST Streamlit command) =====
 st.set_page_config(
     page_title="SAI FITNESS - Member Management",
     layout="wide",
     initial_sidebar_state="auto",
     menu_items={
-        'Report a bug': None,  # Disable bug report menu
-        'Get help': None,      # Disable help menu
-        'About': None         # Disable about menu
+        'Report a bug': None,
+        'Get help': None,
+        'About': None
     }
 )
 
-# Add security CSS immediately after
+# ===== 3. SECURITY MEASURES =====
 hide_github_icon = """
 <style>
 #MainMenu {visibility: hidden;}
@@ -23,13 +31,6 @@ footer {visibility: hidden;}
 """
 st.markdown(hide_github_icon, unsafe_allow_html=True)
 
-import random
-from datetime import datetime
-import gspread
-from google.oauth2.service_account import Credentials
-import streamlit as st
-
-# Background color for the app
 # Updated background CSS for the app
 page_bg_style = """
 <style>
@@ -52,10 +53,6 @@ h1, h2, h3, h4, h5, h6, p, div, label {
 
 # Inject the CSS into the app
 st.markdown(page_bg_style, unsafe_allow_html=True)
-
-
-
-
 
 class GymModel:
     def __init__(self):
