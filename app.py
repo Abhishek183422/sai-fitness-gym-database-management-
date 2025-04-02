@@ -48,7 +48,7 @@ class GymModel:
 
     def google_sheet(self):
         scopes = ["https://www.googleapis.com/auth/spreadsheets"]
-        creds = Credentials.from_service_account_file("credentials.json", scopes=scopes)
+        creds = Credentials.from_service_account_info(st.secrets["gcp_creds"], scopes=scopes)  # Updated line
         client = gspread.authorize(creds)
         sheet_id = "1dJ9Cqlqr8SiR4fovXpWtYh7tWPA8-gsx648Yr-uhb1c"
         workbook = client.open_by_key(sheet_id)
