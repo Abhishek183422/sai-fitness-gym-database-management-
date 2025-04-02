@@ -1,3 +1,15 @@
+
+st.set_page_config(
+    page_title="SAI FITNESS - Member Management",
+    layout="wide",
+    initial_sidebar_state="auto",
+    menu_items={
+        'Report a bug': None,  # Disable bug report menu
+        'Get help': None,      # Disable help menu
+        'About': None         # Disable about menu
+    }
+)
+
 import random
 from datetime import datetime
 import gspread
