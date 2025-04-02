@@ -94,10 +94,8 @@ class GymModel:
         # Streamlit form for adding new members
         # Streamlit form for adding new members
         # Streamlit form for adding new members
-        with st.form("data_entry_form"):
+        with st.form("data_entry_form", clear_on_submit=True):  # Clears inputs after submit
             st.subheader("Add New Member")
-            
-            # Simplified text input fields without session state
             member_name = st.text_input("**Member Name**")
             phone_no = st.text_input("**Phone Number**")
             
@@ -105,14 +103,18 @@ class GymModel:
             
             if submitted:
                 if member_name and phone_no:
-                    # Generate unique code and join date
-                    code, join_date = self.code_and_date()
+                    # Check for duplicate phone numbers
+                    existing_data = self.sheet.get_all_values()
+                    existing_phones = [row[2] for row in existing_data[1:]]  # Skip header row
                     
-                    # Update the Google Sheet
-                    self.update_google_sheet(member_name, join_date, phone_no, code)
-                    st.success("**Data added successfully!**")
+                    if phone_no in existing_phones:
+                        st.error("❌ This phone number is already registered!")
+                    else:
+                        code, join_date = self.code_and_date()
+                        self.update_google_sheet(member_name, join_date, phone_no, code)
+                        st.success("✅ Member added successfully!")
                 else:
-                    st.error("**Please fill in all the fields.**")
+                    st.error("⚠️ Please fill in all fields!")
 
 
 
