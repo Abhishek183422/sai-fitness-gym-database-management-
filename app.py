@@ -30,6 +30,7 @@ footer {visibility: hidden;}
 st.markdown(hide_github_icon, unsafe_allow_html=True)
 
 # Updated background and text styling
+# Updated background CSS for the app
 page_bg_style = """
 <style>
 /* Background Image */
@@ -41,10 +42,22 @@ page_bg_style = """
     background-position: center;
 }
 
-/* Text and Heading Styling */
+/* Text Color and Font */
 h1, h2, h3, h4, h5, h6, p, div, label {
-    color: #FF4500 !important; /* Deep Bright Orange */
+    color: #FF4500; /* Deep Bright Orange */
     font-family: 'Arial', sans-serif;
+}
+
+/* Increase font size for form labels */
+label {
+    font-size: 18px !important; /* Adjust size as needed */
+    font-weight: bold;
+}
+
+/* Increase font size for radio button options */
+div[data-baseweb="radio"] {
+    font-size: 18px !important;
+    font-weight: bold;
 }
 
 /* Table Styling */
@@ -52,7 +65,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     background: rgba(0, 0, 0, 0.7); /* Black Transparent Background */
-    color: #FF4500 !important; /* Deep Bright Orange */
+    color: #FF4500; /* Deep Bright Orange Font */
     border-radius: 10px;
 }
 
@@ -65,7 +78,7 @@ th, td {
 th {
     background-color: black;
     font-weight: bold;
-    color: #FF4500 !important;
+    color: #FF4500; /* Deep Bright Orange Headers */
     font-size: 18px;
 }
 
@@ -74,7 +87,10 @@ td {
 }
 </style>
 """
+
+# Inject the CSS into the app
 st.markdown(page_bg_style, unsafe_allow_html=True)
+
 
 class GymModel:
     def __init__(self):
