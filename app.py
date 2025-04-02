@@ -34,58 +34,61 @@ st.markdown(hide_github_icon, unsafe_allow_html=True)
 # Updated background CSS for the app
 page_bg_style = """
 <style>
-/* Global Gold Text Styling */
-h1, h2, h3, h4, h5, h6, p, div, label, .stTextInput>div>div>input, .stRadio>div {
-    color: #FFD700 !important;  /* Gold color */
-    font-family: 'Roboto', sans-serif !important;
-    font-weight: 600 !important;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
-}
+/* Background Image with Overlay */
+.stApp {{
+    background: 
+        linear-gradient(rgba(0, 0, 0, 0.7), 
+        url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}}
 
-/* Main Header */
-h1 {
-    font-size: 2.2rem !important;
-    font-weight: 800 !important;
-    text-align: center;
-}
-
-/* View All Members Table - Optimized for Mobile */
-.mobile-friendly-table {
-    width: 100% !important;
-    font-size: 14px !important;  /* Slightly smaller font */
-}
-
-.mobile-friendly-table table {
-    width: 100% !important;
-    background-color: rgba(0,0,0,0.7) !important;
-    border-collapse: collapse;
-}
-
-.mobile-friendly-table th {
-    background-color: #222 !important;
+/* Gold Text Styling */
+h1, h2, h3, h4, h5, h6, p, div, label, .stTextInput>div>div>input {{
     color: #FFD700 !important;
-    font-size: 15px !important;
-    padding: 8px 5px !important;
-    white-space: nowrap;  /* Prevent line breaks */
-}
+    font-family: 'Roboto', sans-serif !important;
+    text-shadow: 1px 1px 3px #000000;
+}}
 
-.mobile-friendly-table td {
+/* Table Styling */
+.mobile-table {{
+    width: 95% !important;
+    margin: 0 auto !important;
+}}
+
+.mobile-table table {{
+    background-color: rgba(0, 0, 0, 0.7) !important;
+    backdrop-filter: blur(5px);
+}}
+
+.mobile-table th {{
+    background-color: rgba(51, 51, 51, 0.9) !important;
     color: #FFD700 !important;
     font-size: 14px !important;
-    padding: 8px 5px !important;
-}
+    padding: 8px 4px !important;
+}}
 
-/* Mobile Responsiveness */
-@media screen and (max-width: 768px) {
-    .mobile-friendly-table {
-        zoom: 0.95;  /* Slightly reduce size */
-    }
-    .mobile-friendly-table th,
-    .mobile-friendly-table td {
-        padding: 6px 4px !important;
+.mobile-table td {{
+    color: #FFD700 !important;
+    font-size: 13px !important;
+    padding: 6px 4px !important;
+}}
+
+/* Mobile Optimization */
+@media screen and (max-width: 768px) {{
+    .mobile-table {{
+        width: 100% !important;
+    }}
+    .mobile-table th {{
         font-size: 13px !important;
-    }
-}
+        padding: 6px 3px !important;
+    }}
+    .mobile-table td {{
+        font-size: 12px !important;
+        padding: 5px 3px !important;
+    }}
+}}
 </style>
 """
 
@@ -201,11 +204,11 @@ class GymModel:
             if rows:
                 # Convert rows to HTML with custom styling
                 table_html = f"""
-                <div class="mobile-friendly-table">
+                <div class="mobile-table">
                 <table>
                     <thead>
                         <tr>
-                            {"".join(f"<th>{header}</th>" for header in ["Member Name", "Join Date", "Phone", "Code"])}
+                            {"".join(f"<th>{header}</th>" for header in ["Name", "Join Date", "Phone", "Code"])}
                         </tr>
                     </thead>
                     <tbody>
@@ -214,6 +217,7 @@ class GymModel:
                 </table>
                 </div>
                 """
+
                 st.markdown(table_html, unsafe_allow_html=True)
             else:
                 st.info("No members found.")
