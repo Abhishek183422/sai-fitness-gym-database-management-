@@ -34,61 +34,80 @@ st.markdown(hide_github_icon, unsafe_allow_html=True)
 # Updated background CSS for the app
 page_bg_style = """
 <style>
-/* Background Image with Overlay */
-.stApp {{
+/* Background with your original image */
+.stApp {
     background: 
-        linear-gradient(rgba(0, 0, 0, 0.7), 
-        url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+        linear-gradient(rgba(0, 0, 0, 0.6), 
+        url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpaperaccess.com%2Ffull%2F1439676.jpg&f=1&nofb=1&ipt=a38fd89a1c75846a83039cf38969594b8670aa7f4861e506d59fbecb326892a0&ipo=images");
     background-size: cover;
-    background-position: center;
+    background-repeat: no-repeat;
     background-attachment: fixed;
-}}
+    background-position: center;
+}
 
-/* Gold Text Styling */
-h1, h2, h3, h4, h5, h6, p, div, label, .stTextInput>div>div>input {{
-    color: #FFD700 !important;
-    font-family: 'Roboto', sans-serif !important;
+/* Gold Text EVERYWHERE */
+h1, h2, h3, h4, h5, h6, p, div, label, 
+.stTextInput>div>div>input, .stRadio>div,
+.stButton>button, .stAlert {
+    color: #FFD700 !important;  /* Pure gold */
+    font-family: 'Arial', sans-serif !important;
+    font-weight: 600 !important;
     text-shadow: 1px 1px 3px #000000;
-}}
+}
 
-/* Table Styling */
-.mobile-table {{
-    width: 95% !important;
+/* Main Header */
+h1 {
+    font-size: 2.5rem !important;
+    font-weight: 800 !important;
+    text-align: center;
+    text-shadow: 2px 2px 5px #000000;
+}
+
+/* View All Members Table */
+.gold-table {
+    width: 98% !important;
     margin: 0 auto !important;
-}}
+    background-color: rgba(0,0,0,0.7) !important;
+    backdrop-filter: blur(3px);
+    border-radius: 8px;
+    overflow: auto;
+}
 
-.mobile-table table {{
-    background-color: rgba(0, 0, 0, 0.7) !important;
-    backdrop-filter: blur(5px);
-}}
+.gold-table table {
+    width: 100% !important;
+}
 
-.mobile-table th {{
-    background-color: rgba(51, 51, 51, 0.9) !important;
+.gold-table th {
+    background-color: rgba(40,40,40,0.9) !important;
+    color: #FFD700 !important;
+    font-size: 15px !important;
+    padding: 10px 8px !important;
+    position: sticky;
+    top: 0;
+}
+
+.gold-table td {
     color: #FFD700 !important;
     font-size: 14px !important;
-    padding: 8px 4px !important;
-}}
+    padding: 8px 6px !important;
+    border-bottom: 1px solid rgba(255,215,0,0.2) !important;
+}
 
-.mobile-table td {{
-    color: #FFD700 !important;
-    font-size: 13px !important;
-    padding: 6px 4px !important;
-}}
-
-/* Mobile Optimization */
-@media screen and (max-width: 768px) {{
-    .mobile-table {{
+/* Mobile Responsiveness */
+@media screen and (max-width: 768px) {
+    .gold-table {
         width: 100% !important;
-    }}
-    .mobile-table th {{
+        font-size: 90% !important;
+    }
+    .gold-table th {
+        font-size: 14px !important;
+        padding: 8px 5px !important;
+    }
+    .gold-table td {
         font-size: 13px !important;
-        padding: 6px 3px !important;
-    }}
-    .mobile-table td {{
-        font-size: 12px !important;
-        padding: 5px 3px !important;
-    }}
-}}
+        padding: 6px 4px !important;
+    }
+}
 </style>
 """
 
