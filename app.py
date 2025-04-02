@@ -1,4 +1,3 @@
-
 # 1. IMPORTS (NO Streamlit usage here)
 import random
 from datetime import datetime
@@ -34,79 +33,17 @@ st.markdown(hide_github_icon, unsafe_allow_html=True)
 # Updated background CSS for the app
 page_bg_style = """
 <style>
-/* Background with your original image */
 .stApp {
-    background: 
-        linear-gradient(rgba(0, 0, 0, 0.6), 
-        url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpaperaccess.com%2Ffull%2F1439676.jpg&f=1&nofb=1&ipt=a38fd89a1c75846a83039cf38969594b8670aa7f4861e506d59fbecb326892a0&ipo=images");
+    background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpaperaccess.com%2Ffull%2F1439676.jpg&f=1&nofb=1&ipt=a38fd89a1c75846a83039cf38969594b8670aa7f4861e506d59fbecb326892a0&ipo=images");
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
 }
 
-/* Gold Text EVERYWHERE */
-h1, h2, h3, h4, h5, h6, p, div, label, 
-.stTextInput>div>div>input, .stRadio>div,
-.stButton>button, .stAlert {
-    color: #FFD700 !important;  /* Pure gold */
-    font-family: 'Arial', sans-serif !important;
-    font-weight: 600 !important;
-    text-shadow: 1px 1px 3px #000000;
-}
-
-/* Main Header */
-h1 {
-    font-size: 2.5rem !important;
-    font-weight: 800 !important;
-    text-align: center;
-    text-shadow: 2px 2px 5px #000000;
-}
-
-/* View All Members Table */
-.gold-table {
-    width: 98% !important;
-    margin: 0 auto !important;
-    background-color: rgba(0,0,0,0.7) !important;
-    backdrop-filter: blur(3px);
-    border-radius: 8px;
-    overflow: auto;
-}
-
-.gold-table table {
-    width: 100% !important;
-}
-
-.gold-table th {
-    background-color: rgba(40,40,40,0.9) !important;
-    color: #FFD700 !important;
-    font-size: 15px !important;
-    padding: 10px 8px !important;
-    position: sticky;
-    top: 0;
-}
-
-.gold-table td {
-    color: #FFD700 !important;
-    font-size: 14px !important;
-    padding: 8px 6px !important;
-    border-bottom: 1px solid rgba(255,215,0,0.2) !important;
-}
-
-/* Mobile Responsiveness */
-@media screen and (max-width: 768px) {
-    .gold-table {
-        width: 100% !important;
-        font-size: 90% !important;
-    }
-    .gold-table th {
-        font-size: 14px !important;
-        padding: 8px 5px !important;
-    }
-    .gold-table td {
-        font-size: 13px !important;
-        padding: 6px 4px !important;
-    }
+h1, h2, h3, h4, h5, h6, p, div, label {
+    color: #FF5733; /* Deep gray color for text */
+    font-family: 'Arial', sans-serif; /* Consistent font styling */
 }
 </style>
 """
@@ -168,7 +105,7 @@ class GymModel:
         return len(rows) - 1  # Subtract 1 for the header row
 
     def web_interface(self):
-        st.markdown("<h1 style='text-align: center;'>SAI FITNESS</h1>", unsafe_allow_html=True)
+        st.header('SAI FITNESS')
 
         # Display total member count at the top
         total_members = self.get_total_member_count()
@@ -223,21 +160,38 @@ class GymModel:
             if rows:
                 # Convert rows to HTML with custom styling
                 table_html = f"""
-                
-                <div class="gold-table">
+                <style>
+                table {{
+                    width: 100%;
+                    border-collapse: collapse;
+                }}
+                th, td {{
+                    border: 1px solid #ddd;
+                    padding: 8px;
+                    text-align: left;
+                    color: #FF5733;
+                }}
+                th {{
+                    background-color: #333333;
+                    color: white;
+                    font-weight: bold;  /* ONLY headers will be bold */
+                }}
+                /* Data cells remain normal (no font-weight specified) */
+                td {{
+                    font-weight: normal;
+                }}
+                </style>
                 <table>
                     <thead>
                         <tr>
-                            {"".join(f"<th>{header}</th>" for header in ["Member Name", "Join Date", "Phone", "Code"])}
+                            {"".join(f"<th>{header}</th>" for header in ["Member Name", "Join Date", "Phone Number", "Code"])}
                         </tr>
                     </thead>
                     <tbody>
                         {"".join(f"<tr>{''.join(f'<td>{cell}</td>' for cell in row)}</tr>" for row in rows)}
                     </tbody>
                 </table>
-                </div>
-                """    
-
+                """
                 st.markdown(table_html, unsafe_allow_html=True)
             else:
                 st.info("No members found.")
