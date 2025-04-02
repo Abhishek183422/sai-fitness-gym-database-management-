@@ -42,11 +42,40 @@ page_bg_style = """
 }
 
 h1, h2, h3, h4, h5, h6, p, div, label {
-    color: #FF5733; /* Deep gray color for text */
-    font-family: 'Arial', sans-serif; /* Consistent font styling */
+    color: #FFD700; /* Golden Yellow for Text */
+    font-family: 'Arial', sans-serif;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(0, 0, 0, 0.7); /* Black Transparent Background */
+    color: #FFD700; /* Golden Yellow Font */
+    border-radius: 10px;
+}
+
+th, td {
+    border: 1px solid #FFD700;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: black;
+    font-weight: bold;
+    color: #FFD700; /* Golden Yellow Headers */
+    font-size: 18px;
+}
+
+td {
+    font-size: 16px;
 }
 </style>
 """
+
+st.markdown(page_bg_style, unsafe_allow_html=True)
+
 
 
 
